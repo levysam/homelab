@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: harbor-tailscale
+  namespace: harbor
+  annotations:
+    # Optional: Restrict access to specific tags or users if needed
+    # tailscale.com/tags: "tag:k8s"
+spec:
+  ingressClassName: tailscale
+  tls:
+  - hosts:
+    - harbor # This requests the certificate for 'harbor' on your tailnet
+  rules:
+  - host: harbor # Must match the TLS host above
+    http:
+      paths:
+      # Replicating existing rules for harbor-core
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+      - path: /service/
+        pathType: Prefix
+        backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+      - path: /v2/
+        pathType: Prefix
+        backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+      - path: /c/
+        pathType: Prefix
+        backend:
+          service:
+            name: harbor-core
+            port:
+              number: 80
+      # Replicating existing rule for harbor-portal
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: harbor-portal
+            port:
+              number: 80
+
