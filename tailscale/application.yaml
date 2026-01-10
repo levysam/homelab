@@ -3,7 +3,6 @@ kind: Application
 metadata:
   name: tailscale
   namespace: argocd
-  uid: 84505eec-1c45-4af8-af22-9b31e0712151
 spec:
   destination:
     namespace: tailscale
