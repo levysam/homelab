@@ -17,7 +17,7 @@ spec:
         image: nextcloud/harp:latest
         env:
         - name: HP_SHARED_KEY
-          value: "V~;\j+g_{{Hw76tkR9`JIL" # Você definirá isso no Nextcloud depois
+          value: "JI0mXuyI3iCX5Hu86jf5" # Você definirá isso no Nextcloud depois
         - name: NC_INSTANCE_URL
           value: "https://nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net"
         ports:
