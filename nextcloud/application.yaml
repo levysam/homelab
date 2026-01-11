@@ -11,6 +11,15 @@ spec:
     chart: nextcloud
     helm:
       values: |
+        internalDatabase:
+          enabled: true
+
+          mariadb:
+            enabled: true
+
+            auth:
+              database: nextcloud
+              username: nextcloud
         nextcloud:
           host: nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
           trustedDomains:
