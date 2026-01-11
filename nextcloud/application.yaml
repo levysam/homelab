@@ -56,9 +56,9 @@ spec:
           enabled: false # Set to true only if using a DB outside this helm chart
         phpClientSsl:
           enabled: false
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: nextcloud
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nextcloud
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
