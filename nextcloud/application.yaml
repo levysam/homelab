@@ -11,12 +11,6 @@ spec:
     chart: nextcloud
     helm:
       values: |
-        mariadb:
-          enabled: true
-
-          auth:
-            database: nextcloud
-            username: nextcloud
         nextcloud:
           host: nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
           trustedDomains:
@@ -41,10 +35,30 @@ spec:
             - name: OVERWRITECLIURL
               value: https://nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
             - name: TRUSTED_PROXIES
-              value: 10.0.0.0/8
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: nextcloud
+              value: 10.0.0.0/8  
+          persistence:
+            enabled: true
+            storageClass: "longhorn"
+            size: 10Gi
+
+        mariadb:
+          enabled: true
+          auth:
+            database: nextcloud
+            username: nextcloud
+            password: nextcloudpassword # Ensure this matches MYSQL_PASSWORD below
+          primary:
+            persistence:
+              enabled: true
+              storageClass: "longhorn"
+
+        externalDatabase:
+          enabled: false # Set to true only if using a DB outside this helm chart
+        phpClientSsl:
+          enabled: false
+          destination:
+            server: https://kubernetes.default.svc
+            namespace: nextcloud
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
