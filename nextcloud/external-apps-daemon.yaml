@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-appapi-harp
+  namespace: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app: appapi-harp
+  template:
+    metadata:
+      labels:
+        app: appapi-harp
+    spec:
+      containers:
+      - name: harp
+        image: nextcloud/harp:latest
+        env:
+        - name: HP_SHARED_KEY
+          value: "V~;\j+g_{{Hw76tkR9`JIL" # Você definirá isso no Nextcloud depois
+        - name: NC_INSTANCE_URL
+          value: "https://nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net"
+        ports:
+        - containerPort: 8780
+        - containerPort: 8782
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appapi-harp
+  namespace: nextcloud
+spec:
+  selector:
+    app: appapi-harp
+  ports:
+    - name: http
+      port: 8780
+    - name: frp
+      port: 8782
