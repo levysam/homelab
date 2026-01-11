@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: tailscale-nextcloud-ingress
   namespace: nextcloud
+  annotations:
+    tailscale.com/http-redirect: "true"
 spec:
   defaultBackend:
     service:
