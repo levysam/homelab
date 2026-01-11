@@ -23,6 +23,8 @@ spec:
             - nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
 
           extraEnv:
+            - name: NEXTCLOUD_DB_TYPE
+              value: mysql
             - name: MYSQL_HOST
               value: nextcloud-mariadb
             - name: MYSQL_DATABASE
