@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: harp
-        image: nextcloud/harp:latest
+        image: ghcr.io/nextcloud/nextcloud-appapi-harp:release
         env:
         - name: HP_SHARED_KEY
           value: "JI0mXuyI3iCX5Hu86jf5" # Você definirá isso no Nextcloud depois
