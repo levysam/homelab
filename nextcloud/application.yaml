@@ -9,6 +9,31 @@ spec:
     repoURL: https://nextcloud.github.io/helm/
     targetRevision: 8.7.0
     chart: nextcloud
+    helm:
+      values: |
+        nextcloud:
+        host: nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
+        trustedDomains:
+          - nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
+
+        extraEnv:
+          - name: MYSQL_HOST
+            value: nextcloud-mariadb
+          - name: MYSQL_DATABASE
+            value: nextcloud
+          - name: MYSQL_USER
+            value: nextcloud
+          - name: MYSQL_PASSWORD
+            value: nextcloudpassword
+
+          - name: OVERWRITEHOST
+            value: nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
+          - name: OVERWRITEPROTOCOL
+            value: https
+          - name: OVERWRITECLIURL
+            value: https://nextcloud-tailscale-nextcloud-ingress-ingress.tailf76cf8.ts.net
+          - name: TRUSTED_PROXIES
+            value: 10.0.0.0/8
   destination:
     server: https://kubernetes.default.svc
     namespace: nextcloud
