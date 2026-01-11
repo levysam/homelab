@@ -42,6 +42,11 @@ spec:
             enabled: true
             storageClass: "longhorn"
             size: 10Gi
+            nextcloudData:
+              enabled: true
+              storageClass: "longhorn"
+              size: 250Gi
+              accessMode: ReadWriteOnce
 
         mariadb:
           enabled: true
