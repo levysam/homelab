@@ -11,6 +11,15 @@ spec:
     chart: nextcloud
     helm:
       values: |
+        persistence:
+          enabled: true
+          storageClass: "longhorn"
+          size: 10Gi
+          nextcloudData:
+            enabled: true
+            storageClass: "longhorn"
+            size: 200Gi
+            accessMode: ReadWriteOnce
         internalDatabase:
           enabled: false
         nextcloud:
@@ -38,15 +47,6 @@ spec:
               value: 10.0.0.0/8  
             - name: DATABASE_TYPE
               value: mysql
-          persistence:
-            enabled: true
-            storageClass: "longhorn"
-            size: 10Gi
-            nextcloudData:
-              enabled: true
-              storageClass: "longhorn"
-              size: 250Gi
-              accessMode: ReadWriteOnce
 
         mariadb:
           enabled: true
