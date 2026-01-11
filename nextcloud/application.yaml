@@ -18,7 +18,7 @@ spec:
           nextcloudData:
             enabled: true
             storageClass: "longhorn"
-            size: 200Gi
+            size: 150Gi
             accessMode: ReadWriteOnce
         internalDatabase:
           enabled: false
