@@ -4,7 +4,7 @@ metadata:
   name: mikrotik-peer
   namespace: metallb
 spec:
-  peerAddress: 192.168.87.1 # IP do seu MikroTik
+  peerAddress: 192.168.88.1 # IP do seu MikroTik
   peerASN: 64500
   myASN: 64501
   holdTime: 90s
