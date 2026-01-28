@@ -1,0 +1,29 @@
+apiVersion: metallb.io/v1beta1
+kind: BGPPeer
+metadata:
+  name: mikrotik-peer
+  namespace: metallb
+spec:
+  peerAddress: 192.168.87.1 # IP do seu MikroTik
+  peerASN: 64500
+  myASN: 64501
+  holdTime: 90s
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: navride-service-pool
+  namespace: metallb
+spec:
+  addresses:
+  # Faixa de IPs para seus LoadBalancers (Servidores/Serviços)
+  - 192.168.87.2-192.168.87.250 
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: bgp-adv
+  namespace: metallb
+spec:
+  ipAddressPools:
+  - navride-service-pool
