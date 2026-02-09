@@ -3,13 +3,16 @@ kind: Ingress
 metadata:
   name: seafile-tailscale
   namespace: seafile
+  annotations:
+    # Use this if you want to force HTTPS redirect through the Tailscale ingress
+    # tailscale.com/hostname: seafile
 spec:
   ingressClassName: tailscale
   tls:
   - hosts:
-    - seafile # Requests the 'seafile' cert on your tailnet
+    - seafile # This requests the certificate for 'seafile' on your tailnet
   rules:
-  - host: seafile 
+  - host: seafile # Access via https://seafile.<your-tailnet-domain>
     http:
       paths:
       - path: /
