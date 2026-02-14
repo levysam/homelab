@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mikrotik-tailscale
+  namespace: tailscale
+  annotations:
+    # Isso cria uma identidade para o Mikrotik na sua lista de máquinas da Tailscale
+    tailscale.com/expose: "true"
+    # O hostname que aparecerá no painel da Tailscale
+    tailscale.com/hostname: "mikrotik-homelab"
+spec:
+  type: ClusterIP
+  ports:
+  - name: winbox
+    protocol: TCP
+    port: 8291
+    targetPort: 8291
+  - name: www
+    protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mikrotik-tailscale
+  namespace: tailscale
+subsets:
+  - addresses:
+      - ip: 192.168.87.1 # O IP real do seu Mikrotik
+    ports:
+      - port: 8291
+      - port: 80
