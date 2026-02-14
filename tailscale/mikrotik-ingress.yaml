@@ -15,6 +15,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: mikrotik-service
+            name: mikrotik-tailscale
             port:
               number: 80
