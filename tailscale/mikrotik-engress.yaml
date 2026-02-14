@@ -29,5 +29,9 @@ subsets:
   - addresses:
       - ip: 192.168.87.1 # O IP real do seu Mikrotik
     ports:
-      - port: 8291
-      - port: 80
+      - name: winbox
+        port: 8291
+      - name: www
+        port: 80
+
+
