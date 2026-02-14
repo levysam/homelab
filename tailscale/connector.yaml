@@ -1,0 +1,9 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: tailscale-dns-forwarder
+  namespace: tailscale
+spec:
+  hostname: cluster-dns-gateway
+  # Habilita o encaminhamento de DNS para o cluster
+  nameserver: true
