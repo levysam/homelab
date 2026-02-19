@@ -11,6 +11,8 @@ spec:
     targetRevision: v3.7.159 # Versão estável de 2026
     helm:
       values: |
+        ingress:
+          enabled: false
         rbac:
           create: true
         
