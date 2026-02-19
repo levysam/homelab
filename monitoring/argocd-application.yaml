@@ -15,6 +15,13 @@ spec:
           prometheusSpec:
             retention: 15d
             retentionSize: 30GiB
+        grafana:
+          additionalDataSources:
+            - name: Netdata
+              type: prometheus
+              url: http://netdata.netdata.svc.cluster.local:19999/api/v1/allmetrics?format=prometheus&help=yes
+              access: proxy
+              isDefault: false
 
   destination:
     server: https://kubernetes.default.svc

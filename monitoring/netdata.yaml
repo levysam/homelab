@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netdata
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://netdata.github.io/helmchart/
+    chart: netdata
+    targetRevision: v3.7.159 # Versão estável de 2026
+    helm:
+      values: |
+        rbac:
+          create: true
+        
+        # Resolve o erro de PodSecurity baseline que você enfrentou
+        child:
+          podAnnotationAppArmor:
+            enabled: false
+          hostNetworkUsage: true
+        
+        k8sState:
+          podAnnotationAppArmor:
+            enabled: false
+
+        # Configuração do banco de dados e retenção no CPU
+        parent:
+          database:
+            volumesize: 5Gi
+          
+          # Configura o Netdata para exportar dados para o Prometheus
+          configs:
+            exporting:
+              data: |
+                [exporting:global]
+                    enabled = yes
+                    send charts matching = *
+                [prometheus:exporter]
+                    enabled = yes
+                    send names instead of ids = yes
+                    send help = yes
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: netdata # Certifique-se de aplicar o label de privileged neste namespace antes
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
